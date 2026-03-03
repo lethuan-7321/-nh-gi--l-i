@@ -55,5 +55,5 @@ q8 = st.radio("8. Tổng nhận định?",
               ["Bình thường", "Cần theo dõi", "Bất thường"],
               horizontal=True)
 
-    if st.button("Gửi đánh giá"):
-        st.success("Đã ghi nhận đánh giá!")
+if st.button("Gửi đánh giá"):
+st.success("Đã ghi nhận đánh giá!")
