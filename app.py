@@ -17,7 +17,7 @@ col1, col2 = st.columns([1, 1])
 with col1:
     st.subheader("Hình ảnh")
     img = Image.open(image_path)
-    st.image(img, use_column_width=True)
+st.image(img, width=450)
 
 with col2:
     st.subheader("Bộ câu hỏi đánh giá")
