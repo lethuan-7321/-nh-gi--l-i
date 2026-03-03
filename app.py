@@ -100,7 +100,7 @@ import streamlit as st
 from datetime import datetime
 
 # Load credentials từ secrets
-creds_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+creds_dict = st.secrets["GOOGLE_CREDENTIALS"]
 creds = Credentials.from_service_account_info(
     creds_dict,
     scopes=["https://www.googleapis.com/auth/spreadsheets"]
