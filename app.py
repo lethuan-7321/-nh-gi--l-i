@@ -1,5 +1,9 @@
 import streamlit as st
 import os
+st.write(os.listdir("images"))
+
+with open("images/luoi_1.jpg", "rb") as f:
+    st.write(f.read()[:20])
 import pandas as pd
 from PIL import Image
 
