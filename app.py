@@ -7,30 +7,30 @@ st.set_page_config(layout="wide")
 st.title("ĐÁNH GIÁ HÌNH ẢNH LƯỠI")
 
 image_folder = "images"
-
-# Kiểm tra thư mục tồn tại
-if not os.path.exists(image_folder):
-    st.error("Không tìm thấy thư mục images")
-    st.stop()
-
-# Lấy danh sách ảnh jpg
 images = [f for f in os.listdir(image_folder) if f.lower().endswith(".jpg")]
 
-if len(images) == 0:
-    st.error("Không tìm thấy file JPG trong thư mục images")
-    st.stop()
-
-# Chọn ảnh
 current_image = st.selectbox("Chọn ảnh:", images)
-
 image_path = os.path.join(image_folder, current_image)
 
-st.write("Đường dẫn:", image_path)
-st.write("File tồn tại:", os.path.exists(image_path))
+# ====== CHIA 2 CỘT ======
+col1, col2 = st.columns([1, 1])
 
-# Hiển thị ảnh
-try:
+with col1:
+    st.subheader("Hình ảnh")
     img = Image.open(image_path)
     st.image(img, use_column_width=True)
-except Exception as e:
-    st.error(f"Lỗi mở ảnh: {e}")
+
+with col2:
+    st.subheader("Bộ câu hỏi đánh giá")
+
+    q1 = st.radio("1. Màu sắc lưỡi?", ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"])
+    q2 = st.radio("2. Rêu lưỡi?", ["Mỏng", "Dày", "Trắng", "Vàng"])
+    q3 = st.radio("3. Hình dạng lưỡi?", ["Bình thường", "Sưng", "Có vết răng"])
+    q4 = st.radio("4. Độ ẩm?", ["Ẩm", "Khô"])
+    q5 = st.radio("5. Có nứt lưỡi?", ["Không", "Có"])
+    q6 = st.radio("6. Có đốm bất thường?", ["Không", "Có"])
+    q7 = st.radio("7. Mép lưỡi?", ["Bình thường", "Răng cưa"])
+    q8 = st.radio("8. Tổng nhận định?", ["Bình thường", "Cần theo dõi", "Bất thường"])
+
+    if st.button("Gửi đánh giá"):
+        st.success("Đã ghi nhận đánh giá!")
