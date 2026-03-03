@@ -1,68 +1,85 @@
 import streamlit as st
+import pandas as pd
 from PIL import Image
+import os
 
 # Cấu hình trang
 st.set_page_config(layout="wide")
 
-st.title("Hệ thống phân tích lưỡi")
+st.title("Hệ thống thiệt chẩn")
 
-# Upload ảnh
-uploaded_file = st.file_uploader("Tải ảnh lưỡi lên", type=["jpg", "jpeg", "png"])
+# ===== Load ảnh cố định =====
+img = Image.open("luoi.jpg")
 
-if uploaded_file is not None:
-    img = Image.open(uploaded_file)
+# ===== Layout 2 cột =====
+col1, col2 = st.columns([1, 1])
 
-    # Tạo 2 cột
-    col1, col2 = st.columns([1, 1])
+# ============================
+# CỘT TRÁI - ẢNH
+# ============================
+with col1:
+    st.subheader("Ảnh lưỡi")
+    st.image(img, width=450)
 
-    # ===== CỘT TRÁI =====
-    with col1:
-        st.subheader("Ảnh lưỡi")
-        st.image(img, width=450)
+# ============================
+# CỘT PHẢI - 8 CÂU HỎI
+# ============================
+with col2:
+    st.subheader("Nhập đặc điểm thiệt chẩn")
 
-    # ===== CỘT PHẢI =====
-    with col2:
-        st.subheader("Nhập đặc điểm lưỡi")
+    q1 = st.radio("1. Màu sắc lưỡi:",
+                  ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"],
+                  horizontal=True)
 
-        color = st.radio(
-            "Màu sắc lưỡi:",
-            ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"]
-        )
+    q2 = st.radio("2. Rêu lưỡi:",
+                  ["Không", "Mỏng", "Dày"],
+                  horizontal=True)
 
-        coat = st.radio(
-            "Rêu lưỡi:",
-            ["Mỏng", "Dày", "Trắng", "Vàng"]
-        )
+    q3 = st.radio("3. Màu rêu:",
+                  ["Trắng", "Vàng", "Xám"],
+                  horizontal=True)
 
-        shape = st.radio(
-            "Hình dạng lưỡi:",
-            ["Bình thường", "Sưng", "Có vết răng"]
-        )
+    q4 = st.radio("4. Hình dạng lưỡi:",
+                  ["Bình thường", "Sưng", "Teo"],
+                  horizontal=True)
 
-        moisture = st.radio(
-            "Độ ẩm:",
-            ["Ẩm", "Khô"]
-        )
+    q5 = st.radio("5. Có vết răng?",
+                  ["Không", "Có"],
+                  horizontal=True)
 
-        cracks = st.radio(
-            "Có nứt lưỡi?",
-            ["Không", "Có"]
-        )
+    q6 = st.radio("6. Độ ẩm:",
+                  ["Ẩm", "Khô"],
+                  horizontal=True)
 
-        spots = st.radio(
-            "Có đốm bất thường?",
-            ["Không", "Có"]
-        )
+    q7 = st.radio("7. Có nứt lưỡi?",
+                  ["Không", "Có"],
+                  horizontal=True)
 
-        if st.button("Phân tích"):
-            st.success("Đã ghi nhận thông tin!")
-            st.write("### Kết quả bạn chọn:")
-            st.write("Màu sắc:", color)
-            st.write("Rêu lưỡi:", coat)
-            st.write("Hình dạng:", shape)
-            st.write("Độ ẩm:", moisture)
-            st.write("Nứt lưỡi:", cracks)
-            st.write("Đốm bất thường:", spots)
+    q8 = st.radio("8. Có đốm bất thường?",
+                  ["Không", "Có"],
+                  horizontal=True)
 
+# ============================
+# LƯU CSV TỰ ĐỘNG
+# ============================
+
+data = {
+    "Màu sắc": [q1],
+    "Rêu lưỡi": [q2],
+    "Màu rêu": [q3],
+    "Hình dạng": [q4],
+    "Vết răng": [q5],
+    "Độ ẩm": [q6],
+    "Nứt lưỡi": [q7],
+    "Đốm bất thường": [q8]
+}
+
+df = pd.DataFrame(data)
+
+file_path = "ket_qua.csv"
+
+# Nếu file tồn tại thì append, không thì tạo mới
+if os.path.exists(file_path):
+    df.to_csv(file_path, mode='a', header=False, index=False)
 else:
-    st.info("Vui lòng tải ảnh lên để bắt đầu.")
+    df.to_csv(file_path, index=False)
