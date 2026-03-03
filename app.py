@@ -9,8 +9,9 @@ st.set_page_config(layout="wide")
 st.title("Hệ thống thiệt chẩn")
 
 # ===== Load ảnh cố định =====
-img = Image.open("luoi_1.jpg")
-img = Image.open("luoi_2.jpg")
+from PIL import Image
+
+img = Image.open("images/luoi_1.jpg")
 
 # ===== Layout 2 cột =====
 col1, col2 = st.columns([1, 1])
