@@ -1,58 +1,68 @@
 import streamlit as st
-st.set_page_config(layout="wide")
-import os
 from PIL import Image
 
-st.title("ĐÁNH GIÁ HÌNH ẢNH LƯỠI")
+# Cấu hình trang
+st.set_page_config(layout="wide")
 
-image_folder = "images"
-images = [f for f in os.listdir(image_folder) if f.lower().endswith(".jpg")]
+st.title("Hệ thống phân tích lưỡi")
 
-current_image = st.selectbox("Chọn ảnh:", images)
-image_path = os.path.join(image_folder, current_image)
+# Upload ảnh
+uploaded_file = st.file_uploader("Tải ảnh lưỡi lên", type=["jpg", "jpeg", "png"])
 
-# ====== CHIA 2 CỘT ======
-col1, col2 = st.columns([1, 1])
+if uploaded_file is not None:
+    img = Image.open(uploaded_file)
 
-with col1:
-    st.subheader("Hình ảnh")
-    img = Image.open(image_path)
-st.image(img, width=450)
+    # Tạo 2 cột
+    col1, col2 = st.columns([1, 1])
 
-with col2:
-    st.subheader("Bộ câu hỏi đánh giá")
+    # ===== CỘT TRÁI =====
+    with col1:
+        st.subheader("Ảnh lưỡi")
+        st.image(img, width=450)
 
-q1 = st.radio("1. Màu sắc lưỡi?", 
-              ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"],
-              horizontal=True)
+    # ===== CỘT PHẢI =====
+    with col2:
+        st.subheader("Nhập đặc điểm lưỡi")
 
-q2 = st.radio("2. Rêu lưỡi?", 
-              ["Mỏng", "Dày", "Trắng", "Vàng"],
-              horizontal=True)
+        color = st.radio(
+            "Màu sắc lưỡi:",
+            ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"]
+        )
 
-q3 = st.radio("3. Hình dạng lưỡi?", 
-              ["Bình thường", "Sưng", "Có vết răng"],
-              horizontal=True)
+        coat = st.radio(
+            "Rêu lưỡi:",
+            ["Mỏng", "Dày", "Trắng", "Vàng"]
+        )
 
-q4 = st.radio("4. Độ ẩm?", 
-              ["Ẩm", "Khô"],
-              horizontal=True)
+        shape = st.radio(
+            "Hình dạng lưỡi:",
+            ["Bình thường", "Sưng", "Có vết răng"]
+        )
 
-q5 = st.radio("5. Có nứt lưỡi?", 
-              ["Không", "Có"],
-              horizontal=True)
+        moisture = st.radio(
+            "Độ ẩm:",
+            ["Ẩm", "Khô"]
+        )
 
-q6 = st.radio("6. Có đốm bất thường?", 
-              ["Không", "Có"],
-              horizontal=True)
+        cracks = st.radio(
+            "Có nứt lưỡi?",
+            ["Không", "Có"]
+        )
 
-q7 = st.radio("7. Mép lưỡi?", 
-              ["Bình thường", "Răng cưa"],
-              horizontal=True)
+        spots = st.radio(
+            "Có đốm bất thường?",
+            ["Không", "Có"]
+        )
 
-q8 = st.radio("8. Tổng nhận định?", 
-              ["Bình thường", "Cần theo dõi", "Bất thường"],
-              horizontal=True)
+        if st.button("Phân tích"):
+            st.success("Đã ghi nhận thông tin!")
+            st.write("### Kết quả bạn chọn:")
+            st.write("Màu sắc:", color)
+            st.write("Rêu lưỡi:", coat)
+            st.write("Hình dạng:", shape)
+            st.write("Độ ẩm:", moisture)
+            st.write("Nứt lưỡi:", cracks)
+            st.write("Đốm bất thường:", spots)
 
-if st.button("Gửi đánh giá"):
-    st.success("Đã ghi nhận đánh giá!")
+else:
+    st.info("Vui lòng tải ảnh lên để bắt đầu.")
