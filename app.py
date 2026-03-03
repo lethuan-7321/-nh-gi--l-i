@@ -9,7 +9,7 @@ st.title("ĐÁNH GIÁ HÌNH ẢNH LƯỠI")
 
 # Tạo thư mục ảnh
 image_folder = "images"
-
+st.write(os.listdir("images"))
 if not os.path.exists(image_folder):
     st.error("Chưa có thư mục images")
     st.stop()
