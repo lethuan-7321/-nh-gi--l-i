@@ -93,3 +93,34 @@ with col2:
             ])
 
         st.success("Đã lưu kết quả vào file CSV!")
+import gspread
+from google.oauth2.service_account import Credentials
+import json
+import streamlit as st
+from datetime import datetime
+
+# Load credentials từ secrets
+creds_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+creds = Credentials.from_service_account_info(
+    creds_dict,
+    scopes=["https://www.googleapis.com/auth/spreadsheets"]
+)
+
+client = gspread.authorize(creds)
+
+# Mở Google Sheet
+sheet = client.open("Tên file Google Sheet của bạn").sheet1
+
+# Khi người dùng bấm nút
+if st.button("Xem kết quả"):
+    
+    result = "Kết quả AI trả về"
+
+    sheet.append_row([
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Tên ảnh hoặc thông tin",
+        "Đặc điểm nhập",
+        result
+    ])
+    
+    st.success("Đã lưu kết quả!")
