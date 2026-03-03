@@ -1,8 +1,7 @@
 import streamlit as st
+st.set_page_config(layout="wide")
 import os
 from PIL import Image
-
-st.set_page_config(layout="wide")
 
 st.title("ĐÁNH GIÁ HÌNH ẢNH LƯỠI")
 
