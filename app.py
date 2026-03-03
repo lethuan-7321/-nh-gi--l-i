@@ -23,14 +23,37 @@ with col1:
 with col2:
     st.subheader("Bộ câu hỏi đánh giá")
 
-    q1 = st.radio("1. Màu sắc lưỡi?", ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"])
-    q2 = st.radio("2. Rêu lưỡi?", ["Mỏng", "Dày", "Trắng", "Vàng"])
-    q3 = st.radio("3. Hình dạng lưỡi?", ["Bình thường", "Sưng", "Có vết răng"])
-    q4 = st.radio("4. Độ ẩm?", ["Ẩm", "Khô"])
-    q5 = st.radio("5. Có nứt lưỡi?", ["Không", "Có"])
-    q6 = st.radio("6. Có đốm bất thường?", ["Không", "Có"])
-    q7 = st.radio("7. Mép lưỡi?", ["Bình thường", "Răng cưa"])
-    q8 = st.radio("8. Tổng nhận định?", ["Bình thường", "Cần theo dõi", "Bất thường"])
+q1 = st.radio("1. Màu sắc lưỡi?", 
+              ["Hồng nhạt", "Đỏ", "Tím", "Nhợt"],
+              horizontal=True)
+
+q2 = st.radio("2. Rêu lưỡi?", 
+              ["Mỏng", "Dày", "Trắng", "Vàng"],
+              horizontal=True)
+
+q3 = st.radio("3. Hình dạng lưỡi?", 
+              ["Bình thường", "Sưng", "Có vết răng"],
+              horizontal=True)
+
+q4 = st.radio("4. Độ ẩm?", 
+              ["Ẩm", "Khô"],
+              horizontal=True)
+
+q5 = st.radio("5. Có nứt lưỡi?", 
+              ["Không", "Có"],
+              horizontal=True)
+
+q6 = st.radio("6. Có đốm bất thường?", 
+              ["Không", "Có"],
+              horizontal=True)
+
+q7 = st.radio("7. Mép lưỡi?", 
+              ["Bình thường", "Răng cưa"],
+              horizontal=True)
+
+q8 = st.radio("8. Tổng nhận định?", 
+              ["Bình thường", "Cần theo dõi", "Bất thường"],
+              horizontal=True)
 
     if st.button("Gửi đánh giá"):
         st.success("Đã ghi nhận đánh giá!")
